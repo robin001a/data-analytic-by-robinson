@@ -1,0 +1,40 @@
+# installing beautifulsoup4
+!pip install beautifulsoup4
+!pip install html5lib
+
+# importing pandas, numpy, BeautifulSoup and requests
+import pandas as pd
+import numpy as np
+import requests
+from bs4 import BeautifulSoup
+
+# Using a Wikimedia webpage go get tables
+url = "https://meta.wikimedia.org/wiki/List_of_Wikipedias/Table"
+data = requests.get(url).text
+
+# parser a soup object to generate data from the wiki website
+soup = BeautifulSoup(data, 'html.parser')
+soup
+
+# finding all the tables in the in the above data
+tables = soup.find_all("tr")
+tables
+
+#using pandas HTML object to read the url
+df = pd.read_html(url)
+print(df)
+
+#printing only the 4th table in the url
+print(df[3])
+
+# using pandas dataframe object to showcase the forth table
+df = pd.DataFrame(df[3])
+df
+
+# using the info() object to know how many colunms and rows and also check for missing datas in the table
+df.info()
+
+#using describe object to know the statistical summary of the table
+df.describe()
+
+df.plot()
